@@ -82,7 +82,8 @@ load-initial-data:
 	cd /home/trec_nitc/htdocs; drush en devel_generate -y; drush cache-clear drush;	drush dis overlay -y;
 	cd /home/trec_nitc/htdocs; drush genc 5 --types=otrec_page;  drush genc 5 --types=otrec_pd_event; drush genc 5 --types=arc_events;
 	cd /home/trec_nitc/htdocs; drush genc 5 --types=arc_news; drush genc 5 --types=otrec_in_the_news; drush genc 5 --types=otrec_in_the_news;drush genc 5 --types=otrec_conference;
-	cd /home/trec_nitc/htdocs; drush upwd admin --password='foobar' 
+	cd /home/trec_nitc/htdocs; drush upwd admin --password='foobar';  drush vset --yes site_name 'Robot Transportation Research Dev Site';
+
 # Requires PHP >= 5.4
 run:
 	php -S localhost:8000
