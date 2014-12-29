@@ -145,6 +145,7 @@ projects[xmlsitemap][version] = "2.0-rc1"
 
 ; Themes
 projects[zen][version] = "5.4"
+projects[rubik][version] = "4.0-beta5"
 
 ; Modules
 projects[research-modules][type] = "module"
