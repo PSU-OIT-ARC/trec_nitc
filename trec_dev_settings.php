@@ -212,8 +212,8 @@
  */
 $databases['default']['default'] = array(
     'driver' => 'mysql',
-    'database' => 'trec',
-    'username' => 'root',
+    'database' => 'trec_nitc',
+    'username' => 'trec_l',
     'password' => '',
     'host' => 'localhost',
     'prefix' => '',
