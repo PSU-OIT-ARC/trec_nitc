@@ -1,4 +1,4 @@
-trec_master
+trec_nitc
 ===========
 Trec/nitc local developer's install/init script. 
 clone wherever and run 'make init'
