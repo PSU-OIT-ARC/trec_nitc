@@ -44,7 +44,7 @@ ifeq ($(shell which compass),)
 	@echo "** Installing Compass..."
 	gem install compass
 else
-	@echo "Rad, Compass is already installed"
+	@echo "** Rad, Compass is already installed"
 endif
 
 drush-make:
@@ -79,13 +79,13 @@ init-app:
 
 load-initial-data:
 	mysql -u root ppms_for_drupal < ./ppms_initial_data.sql
-	cd /home/trec_nitc/htdocs; drush en devel_generate -y; drush cache-clear drush;	
+	cd /home/trec_nitc/htdocs; drush en devel_generate -y; drush cache-clear drush;	drush dis overlay -y;
 	cd /home/trec_nitc/htdocs; drush genc 5 --types=otrec_page;  drush genc 5 --types=otrec_pd_event; drush genc 5 --types=arc_events;
 	cd /home/trec_nitc/htdocs; drush genc 5 --types=arc_news; drush genc 5 --types=otrec_in_the_news; drush genc 5 --types=otrec_in_the_news;drush genc 5 --types=otrec_conference;
-
+	cd /home/trec_nitc/htdocs; drush upwd admin --password='foobar' 
 # Requires PHP >= 5.4
 run:
 	php -S localhost:8000
 
 be-done:
-	@echo "** Rad. a local copy of TREC?NITC is now at /home/trec_nitc/htdocs. a"
+	@echo "** Rad. a local copy of TREC?NITC is now at /home/trec_nitc/htdocs. username is admin, password is 'foobar' read the README"
