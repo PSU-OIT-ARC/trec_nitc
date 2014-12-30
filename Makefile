@@ -17,39 +17,42 @@ install-dependencies:
 # this could be done in a pretty loop	
 ifeq ($(shell which drush),)
 	@echo "** Installing Drush..."
-	pear install drush/drush
+	sudo yum install php-pear
+	sudo pear channel-discover pear.drush.org
+	sudo pear install drush/drush
 else
 	@echo "** Rad, Drush is already installed"
 endif
 ifeq ($(shell which ruby),)
 	@echo "** Installing Ruby..."
-	yum install ruby ruby-devel
+	sudo yum install ruby 
 else
 	@echo "** Rad, Ruby is already installed"
 endif
 ifeq ($(shell which gem),)
 	@echo "** Installing Rubygems..."
-	yum install rubygems
+	sudo yum install rubygems
 else
 	@echo "** Rad, ruby gems is already installed"
 endif
 
 ifeq ($(shell which sass),)
 	@echo "** Installing Sass..."
-	gem install sass
+	sudo gem install sass
 else
 	@echo "** Rad, Sass is already installed"
 endif
 ifeq ($(shell which compass),)
 	@echo "** Installing Compass..."
-	gem install compass
+	sudo gem install compass
 else
 	@echo "** Rad, Compass is already installed"
 endif
+	sudo yum install ruby-devel
 
 drush-make:
 	@echo "*** You gonna need an ssh key for the OIT_ARC githubs for to get all your repos, pal"
-	cd /home; sudo mkdir trec_nitc;
+	cd /home; sudo mkdir -p trec_nitc && sudo chown $(USER) /home/trec_nitc 
 	cp ./trec.make /home/trec_nitc
 	cd /home/trec_nitc && drush make --working-copy ./trec.make /home/trec_nitc/htdocs
 	rm /home/trec_nitc/trec.make
@@ -69,8 +72,8 @@ init-app:
 	cp ./trec_dev_settings.php /home/trec_nitc/htdocs/sites/default/settings.php
 	cp ./ppms_dev_settings.php /home/trec_nitc/htdocs/sites/all/modules/custom/otrec-cms/ppms/ppms_settings.php
 	cd /home/trec_nitc/htdocs; drush si otrec;
-	cp ./trec_nitc.conf /etc/httpd/vhost.d
-	service httpd reload
+	sudo cp ./trec_nitc.conf /etc/httpd/vhost.d
+	sudo service httpd reload
 	cd /home/trec_nitc/htdocs/sites/all/themes/psu_research_theme && compass compile;
 	cd /home/trec_nitc/htdocs/sites/all/themes/otrec_subtheme && compass compile;
 	cd /home/trec_nitc/htdocs/sites/all/themes/nitc_subtheme && compass compile;
@@ -89,4 +92,4 @@ run:
 	php -S localhost:8000
 
 be-done:
-	@echo "** Rad. a local copy of TREC?NITC is now at /home/trec_nitc/htdocs. username is admin, password is 'foobar' read the README"
+	@echo "** Rad. a local copy of TREC?NITC is now at /home/trec_nitc/htdocs. username is admin, password is 'foobar'. vhost setup at http://trec-nitc.dev. read the README"
